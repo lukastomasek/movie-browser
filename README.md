@@ -8,6 +8,6 @@ browse movies
 
 ## Todo
 
-- [] install mui
-- [] implement movie API
-- [] stylize the page
+- [x] install mui
+- [x] implement movie API
+- [ ] stylize the page
