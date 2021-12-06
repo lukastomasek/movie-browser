@@ -1,24 +1,38 @@
-import Navigation from "./pages/Navigation";
-
+import Home from "./pages/Home";
+import {useEffect, useState} from 'react';
 
 function App() {
+  const [movies, setMovies] = useState({});
+  const [apiLoaded, setApi] = useState(false);
+
 
   const getMovies = async()=>{
-    const KEY = "your_key";
+    const KEY = "<<your key>>";
+    
+    try{
 
-    const res = await fetch(`https://api.themoviedb.org/3/movie/76341?api_key=${KEY}`);
-    const movies = await res.json();
+      const res = await fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${KEY}&page=1`);
+      const data = await res.json();
 
-    if(movies){
-
-      console.log(movies.genres.title);
+      if(data){
+        setMovies(data);
+        console.log(data)
+        setApi(true);
+      }
     }
-
+    catch(err){
+      console.log(err.message);
+      setApi(false);
+    }
   };
+
+  useEffect(() => { 
+    getMovies();
+  },[])
 
   return (
     <div className="App">
-      <Navigation/>
+    {apiLoaded &&   <Home data={movies}/>}
     </div>
   );
 }

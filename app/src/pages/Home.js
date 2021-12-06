@@ -1,10 +1,13 @@
 import Navbar from "../components/Navbar";
 import { Container } from "@mui/material";
 
-export default function Navigation(){
+
+export default function Home({data}){
   return(
     <Container>
-      <Navbar/>
+      <Navbar movies={data}/>
+      {/* <div>{movies.title}</div> */}
+
     </Container>
   );
 }
