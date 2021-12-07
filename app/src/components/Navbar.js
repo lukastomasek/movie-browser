@@ -20,22 +20,24 @@ export default function Navbar({movies}){
   const SEARCH_API = `
     https://api.themoviedb.org/3/search/movie?api_key=${KEY}&language=en-US&query=${searchVal}&page=1&include_adult=false`;
 
-
-
   const searchMovie = (e) =>{
     e.preventDefault();
     SetSearchValue(e.target.value);
-    // console.log(searchVal);
   };
 
   const getNewMovies = async() =>{
     try{
       const promise = await fetch(SEARCH_API);
-      const data = await promise.json();
+      const searchedMovie = await promise.json();
 
-      if(data){
-        console.log(data);
-        SetMovies(data)
+      if(searchedMovie){
+        if(searchVal == ''){
+          SetMovies(movies);
+          SetSearchValue('');
+        }else{
+           SetMovies(searchedMovie);
+           SetSearchValue('');
+        }
       }
     }catch(error){
       console.log(error.message);
@@ -47,7 +49,7 @@ export default function Navbar({movies}){
      <Box>
       <AppBar elevation={1}>
         <Toolbar>
-            <Typography noWrap sm={{display:'none'}} variant="h4" color="primaryText" align="left" >Movie Browser Engine</Typography>
+            <Typography noWrap sm={{display:'none'}} variant="h4" color="primaryText" align="left">Movie Browser Engine</Typography>
                 <div style={{
                   display: 'flex',
                   justifyContent:'space-between',

@@ -16,7 +16,7 @@ function App() {
 
       if(data){
         setMovies(data);
-        console.log(data)
+        // console.log(data)
         setApi(true);
       }
     }
@@ -32,7 +32,7 @@ function App() {
 
   return (
     <div className="App">
-    {apiLoaded &&   <Home data={movies}/>}
+      {apiLoaded && <Home data={movies}/>}
     </div>
   );
 }
